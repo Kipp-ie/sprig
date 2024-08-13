@@ -15,39 +15,87 @@ setSolids([])
 let level = 0
 const levels = [
   map`
-..
-..`
+....................
+....................
+....................
+....................
+....................
+....................
+....................
+....................
+....................
+....................
+....................
+....................
+....................
+....................
+....................
+....................`
 ]
 
 setMap(levels[level])
 
 addText("Higher or Lower", {x: 3, y:1});
 var gamestarted = 0
-let number = 1
-let number2 = 0
+number = 0
+number2 = 0
+score = 0
 if (gamestarted == 0) {
-  addText("Press A", {x: 7, y:10});
+  addText("Press A", {x: 6, y:8});
 }
 
 onInput("a", () => {
   if (gamestarted == 0) {
     clearText()
+    addText("Higher W - Lower S", {x:1, y:3});
     addText("Higher or Lower", {x: 3, y:1});
-    let number = Math.floor(Math.random() * 10 + 1);
-    addText(String(number), {x: 7, y: 10});
+    number = Math.floor(Math.random() * 10 + 1);
+    addText(String(number), {x: 9, y: 10});
     gamestarted = 1
+    addText("Score: " + score, {x: 7, y: 2});
   }
 })
 
 onInput("w", () => {
   if (gamestarted == 1) {
-    let number2 = Math.floor(Math.random() * 10 + 1);
+    number2 = Math.floor(Math.random() * 10 + 1);
     addText("The number was:", {x:3, y:12});
     addText(String(number2), {x: 9, y: 13});
-    if (number < number2) {s
+    if (number <= number2) {
       addText("You win! +1 score", {x: 3, y: 14});
       gamestarted = 0
+      score = score + 1
+      addText("Press A", {x:6, y: 8})
       
+      
+    } else {
+      addText("You lose!", {x: 5, y: 14});
+      gamestarted = 0
+      score = 0
+      addText("Press A", {x:6, y: 8})
+
+    }
+  }
+})
+
+onInput("s", () => {
+  if (gamestarted == 1) {
+    number2 = Math.floor(Math.random() * 10 + 1);
+    addText("The number was:", {x:3, y:12});
+    addText(String(number2), {x: 9, y: 13});
+    if (number >= number2) {
+      addText("You win! +1 score", {x: 3, y: 14});
+      gamestarted = 0
+      score = score + 1
+      addText("Press A", {x:6, y: 8})
+      
+      
+    } else {
+      addText("You lose!", {x: 5, y: 14});
+      gamestarted = 0
+      score = 0
+      addText("Press A", {x:6, y: 8})
+
     }
   }
 })
